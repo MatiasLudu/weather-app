@@ -1,0 +1,344 @@
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+/* Estilos en cursiva */
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-ExtraLightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-ExtraBoldItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass/static/Overpass-BlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    background-color: transparent;
+    font-family: 'Overpass', "Roboto", 'Arial', sans-serif;
+}
+
+.layout {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #4A91FF 0%, #47BFDF 100%);
+    padding: 20px 25px;
+    box-sizing: border-box;
+    position: relative;
+    overflow-y: auto;
+    scrollbar-color: transparent;
+}
+
+.layout::-webkit-scrollbar{
+    background-color: transparent;
+    border-radius: 45px;
+    -webkit-border-radius: 45px;
+    -moz-border-radius: 45px;
+    -ms-border-radius: 45px;
+    -o-border-radius: 45px;
+}
+
+
+.layout--night{
+    background: linear-gradient(45deg, #091933 0%, #224D58 100%);
+}
+
+
+.layout__search{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+
+.location__icon{
+    width: 30px;
+    height: 30px;
+}
+
+
+input[type="text"] {
+    width: 75%;
+    padding: 2px 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 20px;
+    display: block;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+input[type="text"]::placeholder{
+    font-size: 18px;
+}
+
+button {
+    padding: 2px 15px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: 2px solid #dddddd;
+    border-radius: 20px;
+    font-size: 18px;
+    text-shadow: 0px 0px 10px rgb(180, 180, 180);
+    font-weight: 500;
+    cursor: pointer;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    box-shadow: 0px 0px 10px inset rgba(224, 224, 224, 0.3);
+}
+
+button:hover {
+    background-color: transparent;
+    box-shadow: none;
+    color: white;
+}
+
+#icon__container{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.icon__weather{
+    width: 100px;
+    height: 100px;
+}
+
+
+#result{
+    margin-top: 10px;
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+details > summary{
+    cursor: pointer;
+}
+
+#result,
+#result2,
+#result3,
+#result4,
+#result5,
+#result6 {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    text-shadow: 0px 0px 5px rgba(13, 12, 75, 0.5);
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    border: 2px solid #dddddd;
+    margin-bottom: 20px;
+}
+
+#result,
+#result6,
+#result3,
+#result4,
+#result5{
+    display: none;
+}
+
+
+#result p {
+    margin: 5px 0;
+}
+
+.suggestion__text{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.weather__temperature{
+    font-size: 72px;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0px 0px 10px rgba(28, 53, 70, 0.5);
+}
+
+.weather__description{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.humidity__info,
+.wind__info{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+}
+
+.margin{
+    margin-right: 1rem !important;
+}
+
+
+.wind__separator,
+.humidity__separator{
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+}
+
+.wind__separator{
+    margin-left: 38px !important;
+}
+
+.humidity__icon,
+.wind__icon{
+    margin-left: 25px !important;
+    margin-right: 10px !important;
+}
+
+.icon__rain,
+.icon__forecast{
+    width: 70px;
+    height: 70px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.suggestion__text2{
+    color: white;
+    text-shadow: 0px 0px 5px rgba(13, 12, 75, 0.5);
+    text-align: center;
+}
