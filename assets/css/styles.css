@@ -202,6 +202,7 @@ input[type="text"] {
 
 input[type="text"]::placeholder{
     font-size: 18px;
+    color: #dddddd;
 }
 
 button {
@@ -269,6 +270,7 @@ details > summary{
     border: 2px solid #dddddd;
     margin-bottom: 20px;
 }
+
 
 #result,
 #result6,

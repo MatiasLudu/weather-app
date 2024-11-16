@@ -1,4 +1,23 @@
 window.addEventListener('load', () => {
+
+    let lastWidth = window.innerWidth;
+
+    window.addEventListener("resize", () => {
+        const currentWidth = window.innerWidth;
+
+        if ((lastWidth > 768 && currentWidth <= 768) || (lastWidth <= 768 && currentWidth > 768)) {
+            location.reload(); 
+        }
+
+        lastWidth = currentWidth;
+    });
+
+
+    if (window.innerWidth > 768) {
+        fetchTemperatures();
+    }
+    
+
     document.getElementById('city').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             getWeather();
@@ -120,6 +139,7 @@ window.addEventListener('load', () => {
         "Nevadas intensas": "assets/img/nieve.png",
         "Fuertes nevadas": "assets/img/nieve.png",
         "Ligeras precipitaciones de nieve": "assets/img/nieve.png",
+        "Ligeros chubascos de aguanieve": "assets/img/nieve.png",
         "Chubascos de nieve fuertes o moderados": "assets/img/nieve.png",
         "Nieve moderada con tormenta en la región": "assets/img/nieve.png",
         "Nieve moderada o fuertes nevadas con tormenta en la región": "assets/img/nieve.png",
@@ -170,6 +190,66 @@ window.addEventListener('load', () => {
     
     const apiKey = "14fe70e7f5a74bc8977202838242009"; // Coloca tu API key aquí
 
+    async function fetchTemperatures() {
+        const cities = [
+            "Anchorage", "Auckland", "Berlín", "Bombay", "Buenos Aires", "Ciudad de México", "Cape Town", "Córdoba",
+            "Cairo", "Istanbul", "Hong Kong", "Irkutsk", "London", "Los Angeles",
+            "Madrid", "Moscú", "New York", "París", "São Paulo", "Seul", "Sídney", "Singapore", "Tokyo", "Toronto", "Ushuaia"
+        ];
+    
+        const cities2 = [
+            "Anchorage", "Auckland", "Berlín", "Bombay", "Buenos Aires", "CDMX", "Ciudad del Cabo", "Córdoba",
+            "El Cairo", "Estambul", "Hong Kong", "Irkutsk", "Londres", "Los Ángeles",
+            "Madrid", "Moscú", "Nueva York", "París", "São Paulo", "Seúl", "Sídney", "Singapur", "Tokio", "Toronto", "Ushuaia"
+        ];
+    
+        const apiKey2 = "14fe70e7f5a74bc8977202838242009";
+        const baseUrl = "https://api.weatherapi.com/v1/forecast.json";
+    
+        try {
+            const fetchPromises = cities.map(city => 
+                fetch(`${baseUrl}?key=${apiKey2}&q=${encodeURIComponent(city)}&days=2&aqi=no&alerts=no&lang=es`)
+                    .then(response => response.json())
+            );
+    
+            const results = await Promise.all(fetchPromises);
+    
+            const temperatures = results.map((result, index) => {
+                const condition = result.current.condition.text;
+                const gifPath = weatherGifs[condition] || "assets/img/tierra.png";
+    
+                return {
+                    city: cities2[index],
+                    temperature: result.current.temp_c,
+                    gifPath: gifPath 
+                };
+            });
+    
+            const container = document.getElementById("result7");
+            container.style.display = "flex";
+            container.innerHTML = ""; 
+    
+            temperatures.forEach(({ city, temperature, gifPath }) => {
+                const cityElement = document.createElement("div");
+                cityElement.classList.add("citiesWeather");
+                cityElement.innerHTML = `
+                    <h3>${city}</h3>
+                    <img src="${gifPath}" alt="Clima en ${city}" class="icon__forecast">
+                    <p>${temperature}°C</p>
+                `;
+                container.appendChild(cityElement);
+            });
+    
+        } catch (error) {
+            console.error("Error al obtener las temperaturas:", error);
+            const container = document.getElementById("result7");
+            container.style.display = "none";
+        }
+    }
+    
+    
+    
+
     function getWeather() {
         const city = document.getElementById('city').value;
         const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=2&aqi=no&alerts=no&lang=es`;
@@ -190,6 +270,8 @@ window.addEventListener('load', () => {
             const result2Box = document.getElementById('result2');
             const result6Box = document.getElementById('result6');
             const result5Box = document.getElementById('result5');
+            const result7Box = document.getElementById('result7');
+            result7Box.style.display = 'none';
 
             document.getElementById("result2").classList.remove('result2__margin');
 
@@ -499,82 +581,38 @@ window.addEventListener('load', () => {
 
             for (let i = currentHour; i < 24; i++) {
                 const rainChance = data.forecast.forecastday[0].hour[i].chance_of_rain;
-                
-                
+
                 if (rainChance > 0) {
-                    rainHtml += `<p class="rainHour">${i}:00hs <br> <img class="icon__rain" src="assets/img/lluvia.png" alt=""> <br>${rainChance}%</p>`;
+                    rainHtml += `<p class="rainHour">${i}:00hs <br> 
+                                <img class="icon__rain" src="assets/img/lluvia.png" alt=""> <br>${rainChance}%</p>`;
                     rainFound = true;
                 }
             }
-  
+
             if (!rainFound) {
+                const forecastHours = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
 
-                const description0 =  data.forecast.forecastday[0].hour[0].condition.text;
-                const description2 =  data.forecast.forecastday[0].hour[2].condition.text;
-                const description4 =  data.forecast.forecastday[0].hour[4].condition.text;
-                const description6 =  data.forecast.forecastday[0].hour[6].condition.text;
-                const description8 =  data.forecast.forecastday[0].hour[8].condition.text;
-                const description10 =  data.forecast.forecastday[0].hour[10].condition.text;
-                const description12 =  data.forecast.forecastday[0].hour[12].condition.text;
-                const description14 =  data.forecast.forecastday[0].hour[14].condition.text;
-                const description16 =  data.forecast.forecastday[0].hour[16].condition.text;
-                const description18 =  data.forecast.forecastday[0].hour[18].condition.text;
-                const description20 =  data.forecast.forecastday[0].hour[20].condition.text;
-                const description22 =  data.forecast.forecastday[0].hour[22].condition.text;
+                forecastHours.forEach(hour => {
+                    const description = data.forecast.forecastday[0].hour[hour].condition.text;
+                    const gifUrl = weatherGifs[description] || "assets/img/tierra.png";
+                    const temp = data.forecast.forecastday[0].hour[hour].temp_c;
+                    const formattedHour = hour.toString().padStart(2, "0") + ":00hs";
 
-                const gifUrl0 = weatherGifs[description0] || "assets/img/tierra.png";
-                const gifUrl2 = weatherGifs[description2] || "assets/img/tierra.png";
-                const gifUrl4 = weatherGifs[description4] || "assets/img/tierra.png";
-                const gifUrl6 = weatherGifs[description6] || "assets/img/tierra.png";
-                const gifUrl8 = weatherGifs[description8] || "assets/img/tierra.png";
-                const gifUrl10 = weatherGifs[description10] || "assets/img/tierra.png";
-                const gifUrl12 = weatherGifs[description12] || "assets/img/tierra.png";
-                const gifUrl14 = weatherGifs[description14] || "assets/img/tierra.png";
-                const gifUrl16 = weatherGifs[description16] || "assets/img/tierra.png";
-                const gifUrl18 = weatherGifs[description18] || "assets/img/tierra.png";
-                const gifUrl20 = weatherGifs[description20] || "assets/img/tierra.png";
-                const gifUrl22 = weatherGifs[description22] || "assets/img/tierra.png";
+                    rainHtml += `<p class="forecastHour">${formattedHour} <br> 
+                                <img class="icon__forecast" src="${gifUrl}" alt=""> <br>${temp}°</p>`;
+                });
 
-                const temp0 = data.forecast.forecastday[0].hour[0].temp_c;
-                const temp2 = data.forecast.forecastday[0].hour[2].temp_c;
-                const temp4 = data.forecast.forecastday[0].hour[4].temp_c;
-                const temp6 = data.forecast.forecastday[0].hour[6].temp_c;
-                const temp8 = data.forecast.forecastday[0].hour[8].temp_c;
-                const temp10 = data.forecast.forecastday[0].hour[10].temp_c;
-                const temp12 = data.forecast.forecastday[0].hour[12].temp_c;
-                const temp14 = data.forecast.forecastday[0].hour[14].temp_c;
-                const temp16 = data.forecast.forecastday[0].hour[16].temp_c;
-                const temp18 = data.forecast.forecastday[0].hour[18].temp_c;
-                const temp20 = data.forecast.forecastday[0].hour[20].temp_c;
-                const temp22 = data.forecast.forecastday[0].hour[22].temp_c;
-
-                rainHtml += `<p class="forecastHour">00:00hs <br> <img class="icon__forecast" src="${gifUrl0}" alt=""> <br>${temp0}°</p>`;
-                rainHtml += `<p class="forecastHour">02:00hs <br> <img class="icon__forecast" src="${gifUrl2}" alt=""> <br>${temp2}°</p>`;
-                rainHtml += `<p class="forecastHour">04:00hs <br> <img class="icon__forecast" src="${gifUrl4}" alt=""> <br>${temp4}°</p>`;
-                rainHtml += `<p class="forecastHour">06:00hs <br> <img class="icon__forecast" src="${gifUrl6}" alt=""> <br>${temp6}°</p>`;
-                rainHtml += `<p class="forecastHour">08:00hs <br> <img class="icon__forecast" src="${gifUrl8}" alt=""> <br>${temp8}°</p>`;
-                rainHtml += `<p class="forecastHour">10:00hs <br> <img class="icon__forecast" src="${gifUrl10}" alt=""> <br>${temp10}°</p>`;
-                rainHtml += `<p class="forecastHour">12:00hs <br> <img class="icon__forecast" src="${gifUrl12}" alt=""> <br>${temp12}°</p>`;
-                rainHtml += `<p class="forecastHour">14:00hs <br> <img class="icon__forecast" src="${gifUrl14}" alt=""> <br>${temp14}°</p>`;
-                rainHtml += `<p class="forecastHour">16:00hs <br> <img class="icon__forecast" src="${gifUrl16}" alt=""> <br>${temp16}°</p>`;
-                rainHtml += `<p class="forecastHour">18:00hs <br> <img class="icon__forecast" src="${gifUrl18}" alt=""> <br>${temp18}°</p>`;
-                rainHtml += `<p class="forecastHour">20:00hs <br> <img class="icon__forecast" src="${gifUrl20}" alt=""> <br>${temp20}°</p>`;
-                rainHtml += `<p class="forecastHour">22:00hs <br> <img class="icon__forecast" src="${gifUrl20}" alt=""> <br>${temp22}°</p>`;
-                
                 document.getElementById("result6").innerHTML = `
-                <p class="suggestion__text">Pronóstico del día</p>
-                <div id="result6b">
-                </div>
+                    <p class="suggestion__text">Pronóstico del día</p>
+                    <div id="result6b">${rainHtml}</div>
                 `;
-            }else{
+            } else {
                 document.getElementById("result6").innerHTML = `
-                <p class="suggestion__text">Probabilidad de lluvia para hoy</p>
-                <div id="result6b">
-                </div>
-                `
+                    <p class="suggestion__text">Probabilidad de lluvia para hoy</p>
+                    <div id="result6b">${rainHtml}</div>
+                `;
             }
-           
-            document.getElementById("result6b").innerHTML = rainHtml;
+
             
             const advice = getAdvice(temperature, description); 
             document.getElementById('result2').innerHTML += `<p>${advice}</p>`;
@@ -597,6 +635,7 @@ window.addEventListener('load', () => {
             if (window.innerWidth < 768){
                 document.getElementById("result2").classList.add('result2__margin');
             }
+
         });
 
     }
