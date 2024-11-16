@@ -68,9 +68,9 @@
         display: grid;
         grid-template-areas: 
         "search search search"
-        "result7 result7 result7"
         "icon result result"
         "result2 result2 result2"
+        "result7 result7 result7"
         "result3 result6 result6"
         "result4 result6 result6";
         grid-gap: 1rem;
